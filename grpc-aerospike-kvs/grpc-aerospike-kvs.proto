@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package grpc_aerospike_kvs;
+
+service KVS {
+    rpc Get (KVSRequest) returns (KVSResponse) {}
+}
+
+message KVSRequest {
+    string name = 1;
+}
+
+message KVSResponse {
+    string message = 1;
+}
