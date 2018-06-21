@@ -1,0 +1,15 @@
+version: '3'
+services:
+  aerospike:
+    build: ./docker/aerospike/
+    ports:
+    - "3000:3000"
+    - "3001:3001"
+    - "3002:3002"
+    - "3003:3003"
+
+  grpc:
+    build: ./docker/grpc/
+    volumes:
+     - ./grpc-aerospike-kvs:/go/src/grpc-aerospike-kvs
+    command: tail -f /dev/null
