@@ -11,5 +11,5 @@ services:
   grpc:
     build: ./docker/grpc/
     volumes:
-     - ./grpc-aerospike-kvs:/go/src/grpc-aerospike-kvs
+     - .:/go/src/grpc-aerospike
     command: tail -f /dev/null
