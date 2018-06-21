@@ -7,6 +7,11 @@ import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
 
+import (
+	context "golang.org/x/net/context"
+	grpc "google.golang.org/grpc"
+)
+
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
 var _ = fmt.Errorf
@@ -18,76 +23,206 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
-type KVSRequest struct {
+type GetMemoRequest struct {
 	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *KVSRequest) Reset()         { *m = KVSRequest{} }
-func (m *KVSRequest) String() string { return proto.CompactTextString(m) }
-func (*KVSRequest) ProtoMessage()    {}
-func (*KVSRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_grpc_aerospike_kvs_bbaa5539e6033706, []int{0}
+func (m *GetMemoRequest) Reset()         { *m = GetMemoRequest{} }
+func (m *GetMemoRequest) String() string { return proto.CompactTextString(m) }
+func (*GetMemoRequest) ProtoMessage()    {}
+func (*GetMemoRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_grpc_aerospike_kvs_0042fd39e787a2d7, []int{0}
 }
-func (m *KVSRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_KVSRequest.Unmarshal(m, b)
+func (m *GetMemoRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetMemoRequest.Unmarshal(m, b)
 }
-func (m *KVSRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_KVSRequest.Marshal(b, m, deterministic)
+func (m *GetMemoRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetMemoRequest.Marshal(b, m, deterministic)
 }
-func (dst *KVSRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_KVSRequest.Merge(dst, src)
+func (dst *GetMemoRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetMemoRequest.Merge(dst, src)
 }
-func (m *KVSRequest) XXX_Size() int {
-	return xxx_messageInfo_KVSRequest.Size(m)
+func (m *GetMemoRequest) XXX_Size() int {
+	return xxx_messageInfo_GetMemoRequest.Size(m)
 }
-func (m *KVSRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_KVSRequest.DiscardUnknown(m)
+func (m *GetMemoRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetMemoRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_KVSRequest proto.InternalMessageInfo
+var xxx_messageInfo_GetMemoRequest proto.InternalMessageInfo
 
-func (m *KVSRequest) GetName() string {
+func (m *GetMemoRequest) GetName() string {
 	if m != nil {
 		return m.Name
 	}
 	return ""
 }
 
-type KVSResponse struct {
-	Message              string   `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+type PutMemoRequest struct {
+	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Memo                 string   `protobuf:"bytes,2,opt,name=memo,proto3" json:"memo,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *KVSResponse) Reset()         { *m = KVSResponse{} }
-func (m *KVSResponse) String() string { return proto.CompactTextString(m) }
-func (*KVSResponse) ProtoMessage()    {}
-func (*KVSResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_grpc_aerospike_kvs_bbaa5539e6033706, []int{1}
+func (m *PutMemoRequest) Reset()         { *m = PutMemoRequest{} }
+func (m *PutMemoRequest) String() string { return proto.CompactTextString(m) }
+func (*PutMemoRequest) ProtoMessage()    {}
+func (*PutMemoRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_grpc_aerospike_kvs_0042fd39e787a2d7, []int{1}
 }
-func (m *KVSResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_KVSResponse.Unmarshal(m, b)
+func (m *PutMemoRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_PutMemoRequest.Unmarshal(m, b)
 }
-func (m *KVSResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_KVSResponse.Marshal(b, m, deterministic)
+func (m *PutMemoRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_PutMemoRequest.Marshal(b, m, deterministic)
 }
-func (dst *KVSResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_KVSResponse.Merge(dst, src)
+func (dst *PutMemoRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_PutMemoRequest.Merge(dst, src)
 }
-func (m *KVSResponse) XXX_Size() int {
-	return xxx_messageInfo_KVSResponse.Size(m)
+func (m *PutMemoRequest) XXX_Size() int {
+	return xxx_messageInfo_PutMemoRequest.Size(m)
 }
-func (m *KVSResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_KVSResponse.DiscardUnknown(m)
+func (m *PutMemoRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_PutMemoRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_KVSResponse proto.InternalMessageInfo
+var xxx_messageInfo_PutMemoRequest proto.InternalMessageInfo
 
-func (m *KVSResponse) GetMessage() string {
+func (m *PutMemoRequest) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *PutMemoRequest) GetMemo() string {
+	if m != nil {
+		return m.Memo
+	}
+	return ""
+}
+
+type DeleteMemoRequest struct {
+	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DeleteMemoRequest) Reset()         { *m = DeleteMemoRequest{} }
+func (m *DeleteMemoRequest) String() string { return proto.CompactTextString(m) }
+func (*DeleteMemoRequest) ProtoMessage()    {}
+func (*DeleteMemoRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_grpc_aerospike_kvs_0042fd39e787a2d7, []int{2}
+}
+func (m *DeleteMemoRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeleteMemoRequest.Unmarshal(m, b)
+}
+func (m *DeleteMemoRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeleteMemoRequest.Marshal(b, m, deterministic)
+}
+func (dst *DeleteMemoRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeleteMemoRequest.Merge(dst, src)
+}
+func (m *DeleteMemoRequest) XXX_Size() int {
+	return xxx_messageInfo_DeleteMemoRequest.Size(m)
+}
+func (m *DeleteMemoRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeleteMemoRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DeleteMemoRequest proto.InternalMessageInfo
+
+func (m *DeleteMemoRequest) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+type MemoResponse struct {
+	Memo                 string   `protobuf:"bytes,1,opt,name=memo,proto3" json:"memo,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *MemoResponse) Reset()         { *m = MemoResponse{} }
+func (m *MemoResponse) String() string { return proto.CompactTextString(m) }
+func (*MemoResponse) ProtoMessage()    {}
+func (*MemoResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_grpc_aerospike_kvs_0042fd39e787a2d7, []int{3}
+}
+func (m *MemoResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_MemoResponse.Unmarshal(m, b)
+}
+func (m *MemoResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_MemoResponse.Marshal(b, m, deterministic)
+}
+func (dst *MemoResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MemoResponse.Merge(dst, src)
+}
+func (m *MemoResponse) XXX_Size() int {
+	return xxx_messageInfo_MemoResponse.Size(m)
+}
+func (m *MemoResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MemoResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MemoResponse proto.InternalMessageInfo
+
+func (m *MemoResponse) GetMemo() string {
+	if m != nil {
+		return m.Memo
+	}
+	return ""
+}
+
+type CodeResponse struct {
+	Code                 string   `protobuf:"bytes,1,opt,name=code,proto3" json:"code,omitempty"`
+	Message              string   `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *CodeResponse) Reset()         { *m = CodeResponse{} }
+func (m *CodeResponse) String() string { return proto.CompactTextString(m) }
+func (*CodeResponse) ProtoMessage()    {}
+func (*CodeResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_grpc_aerospike_kvs_0042fd39e787a2d7, []int{4}
+}
+func (m *CodeResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CodeResponse.Unmarshal(m, b)
+}
+func (m *CodeResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CodeResponse.Marshal(b, m, deterministic)
+}
+func (dst *CodeResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CodeResponse.Merge(dst, src)
+}
+func (m *CodeResponse) XXX_Size() int {
+	return xxx_messageInfo_CodeResponse.Size(m)
+}
+func (m *CodeResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_CodeResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CodeResponse proto.InternalMessageInfo
+
+func (m *CodeResponse) GetCode() string {
+	if m != nil {
+		return m.Code
+	}
+	return ""
+}
+
+func (m *CodeResponse) GetMessage() string {
 	if m != nil {
 		return m.Message
 	}
@@ -95,24 +230,171 @@ func (m *KVSResponse) GetMessage() string {
 }
 
 func init() {
-	proto.RegisterType((*KVSRequest)(nil), "grpc_aerospike_kvs.KVSRequest")
-	proto.RegisterType((*KVSResponse)(nil), "grpc_aerospike_kvs.KVSResponse")
+	proto.RegisterType((*GetMemoRequest)(nil), "grpc_aerospike_kvs.GetMemoRequest")
+	proto.RegisterType((*PutMemoRequest)(nil), "grpc_aerospike_kvs.PutMemoRequest")
+	proto.RegisterType((*DeleteMemoRequest)(nil), "grpc_aerospike_kvs.DeleteMemoRequest")
+	proto.RegisterType((*MemoResponse)(nil), "grpc_aerospike_kvs.MemoResponse")
+	proto.RegisterType((*CodeResponse)(nil), "grpc_aerospike_kvs.CodeResponse")
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConn
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion4
+
+// KVSClient is the client API for KVS service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type KVSClient interface {
+	GetMemo(ctx context.Context, in *GetMemoRequest, opts ...grpc.CallOption) (*MemoResponse, error)
+	PutMemo(ctx context.Context, in *PutMemoRequest, opts ...grpc.CallOption) (*CodeResponse, error)
+	DeleteMemo(ctx context.Context, in *DeleteMemoRequest, opts ...grpc.CallOption) (*CodeResponse, error)
+}
+
+type kVSClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewKVSClient(cc *grpc.ClientConn) KVSClient {
+	return &kVSClient{cc}
+}
+
+func (c *kVSClient) GetMemo(ctx context.Context, in *GetMemoRequest, opts ...grpc.CallOption) (*MemoResponse, error) {
+	out := new(MemoResponse)
+	err := c.cc.Invoke(ctx, "/grpc_aerospike_kvs.KVS/GetMemo", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *kVSClient) PutMemo(ctx context.Context, in *PutMemoRequest, opts ...grpc.CallOption) (*CodeResponse, error) {
+	out := new(CodeResponse)
+	err := c.cc.Invoke(ctx, "/grpc_aerospike_kvs.KVS/PutMemo", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *kVSClient) DeleteMemo(ctx context.Context, in *DeleteMemoRequest, opts ...grpc.CallOption) (*CodeResponse, error) {
+	out := new(CodeResponse)
+	err := c.cc.Invoke(ctx, "/grpc_aerospike_kvs.KVS/DeleteMemo", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// KVSServer is the server API for KVS service.
+type KVSServer interface {
+	GetMemo(context.Context, *GetMemoRequest) (*MemoResponse, error)
+	PutMemo(context.Context, *PutMemoRequest) (*CodeResponse, error)
+	DeleteMemo(context.Context, *DeleteMemoRequest) (*CodeResponse, error)
+}
+
+func RegisterKVSServer(s *grpc.Server, srv KVSServer) {
+	s.RegisterService(&_KVS_serviceDesc, srv)
+}
+
+func _KVS_GetMemo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMemoRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KVSServer).GetMemo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/grpc_aerospike_kvs.KVS/GetMemo",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KVSServer).GetMemo(ctx, req.(*GetMemoRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _KVS_PutMemo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PutMemoRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KVSServer).PutMemo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/grpc_aerospike_kvs.KVS/PutMemo",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KVSServer).PutMemo(ctx, req.(*PutMemoRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _KVS_DeleteMemo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteMemoRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KVSServer).DeleteMemo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/grpc_aerospike_kvs.KVS/DeleteMemo",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KVSServer).DeleteMemo(ctx, req.(*DeleteMemoRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _KVS_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "grpc_aerospike_kvs.KVS",
+	HandlerType: (*KVSServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetMemo",
+			Handler:    _KVS_GetMemo_Handler,
+		},
+		{
+			MethodName: "PutMemo",
+			Handler:    _KVS_PutMemo_Handler,
+		},
+		{
+			MethodName: "DeleteMemo",
+			Handler:    _KVS_DeleteMemo_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "grpc-aerospike-kvs.proto",
 }
 
 func init() {
-	proto.RegisterFile("grpc-aerospike-kvs.proto", fileDescriptor_grpc_aerospike_kvs_bbaa5539e6033706)
+	proto.RegisterFile("grpc-aerospike-kvs.proto", fileDescriptor_grpc_aerospike_kvs_0042fd39e787a2d7)
 }
 
-var fileDescriptor_grpc_aerospike_kvs_bbaa5539e6033706 = []byte{
-	// 153 bytes of a gzipped FileDescriptorProto
+var fileDescriptor_grpc_aerospike_kvs_0042fd39e787a2d7 = []byte{
+	// 243 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xe2, 0x92, 0x48, 0x2f, 0x2a, 0x48,
 	0xd6, 0x4d, 0x4c, 0x2d, 0xca, 0x2f, 0x2e, 0xc8, 0xcc, 0x4e, 0xd5, 0xcd, 0x2e, 0x2b, 0xd6, 0x2b,
 	0x28, 0xca, 0x2f, 0xc9, 0x17, 0x12, 0x02, 0xc9, 0xc4, 0xc3, 0x65, 0xe2, 0xb3, 0xcb, 0x8a, 0x95,
-	0x14, 0xb8, 0xb8, 0xbc, 0xc3, 0x82, 0x83, 0x52, 0x0b, 0x4b, 0x53, 0x8b, 0x4b, 0x84, 0x84, 0xb8,
-	0x58, 0xf2, 0x12, 0x73, 0x53, 0x25, 0x18, 0x15, 0x18, 0x35, 0x38, 0x83, 0xc0, 0x6c, 0x25, 0x75,
-	0x2e, 0x6e, 0xb0, 0x8a, 0xe2, 0x82, 0xfc, 0xbc, 0xe2, 0x54, 0x21, 0x09, 0x2e, 0xf6, 0xdc, 0xd4,
-	0xe2, 0xe2, 0xc4, 0x74, 0x98, 0x2a, 0x18, 0xd7, 0xc8, 0x9f, 0x8b, 0xd9, 0x3b, 0x2c, 0x58, 0xc8,
-	0x83, 0x8b, 0xd9, 0x3d, 0xb5, 0x44, 0x48, 0x4e, 0x0f, 0xd3, 0x36, 0x3d, 0x84, 0x55, 0x52, 0xf2,
-	0x38, 0xe5, 0x21, 0x16, 0x29, 0x31, 0x24, 0xb1, 0x81, 0x9d, 0x6d, 0x0c, 0x08, 0x00, 0x00, 0xff,
-	0xff, 0xcf, 0x68, 0xee, 0x6a, 0xd2, 0x00, 0x00, 0x00,
+	0x54, 0xb8, 0xf8, 0xdc, 0x53, 0x4b, 0x7c, 0x53, 0x73, 0xf3, 0x83, 0x52, 0x0b, 0x4b, 0x53, 0x8b,
+	0x4b, 0x84, 0x84, 0xb8, 0x58, 0xf2, 0x12, 0x73, 0x53, 0x25, 0x18, 0x15, 0x18, 0x35, 0x38, 0x83,
+	0xc0, 0x6c, 0x25, 0x0b, 0x2e, 0xbe, 0x80, 0x52, 0x42, 0xaa, 0x40, 0x62, 0xb9, 0xa9, 0xb9, 0xf9,
+	0x12, 0x4c, 0x10, 0x31, 0x10, 0x5b, 0x49, 0x9d, 0x4b, 0xd0, 0x25, 0x35, 0x27, 0xb5, 0x24, 0x95,
+	0x90, 0x15, 0x4a, 0x5c, 0x3c, 0x10, 0x25, 0xc5, 0x05, 0xf9, 0x79, 0xc5, 0x08, 0xc3, 0x18, 0x91,
+	0x0c, 0xb3, 0xe1, 0xe2, 0x71, 0xce, 0x4f, 0x49, 0x45, 0x56, 0x93, 0x9c, 0x9f, 0x02, 0x37, 0x07,
+	0xc4, 0x16, 0x92, 0xe0, 0x62, 0xcf, 0x4d, 0x2d, 0x2e, 0x4e, 0x4c, 0x4f, 0x85, 0xba, 0x03, 0xc6,
+	0x35, 0x6a, 0x61, 0xe2, 0x62, 0xf6, 0x0e, 0x0b, 0x16, 0x0a, 0xe4, 0x62, 0x87, 0x7a, 0x59, 0x48,
+	0x49, 0x0f, 0x33, 0x48, 0xf4, 0x50, 0xc3, 0x43, 0x4a, 0x01, 0x9b, 0x1a, 0x64, 0xa7, 0x2a, 0x31,
+	0x80, 0x8c, 0x84, 0x86, 0x0f, 0x76, 0x23, 0x51, 0x03, 0x0f, 0xbb, 0x91, 0xc8, 0x3e, 0x53, 0x62,
+	0x10, 0x0a, 0xe7, 0xe2, 0x42, 0x04, 0x9c, 0x90, 0x2a, 0x36, 0x1d, 0x18, 0x01, 0x4b, 0x8c, 0xc1,
+	0x49, 0x6c, 0xe0, 0xc4, 0x60, 0x0c, 0x08, 0x00, 0x00, 0xff, 0xff, 0x0a, 0x6a, 0xae, 0xe6, 0x28,
+	0x02, 0x00, 0x00,
 }

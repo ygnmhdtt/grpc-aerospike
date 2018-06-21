@@ -3,13 +3,29 @@ syntax = "proto3";
 package grpc_aerospike_kvs;
 
 service KVS {
-    rpc Get (KVSRequest) returns (KVSResponse) {}
+    rpc GetMemo (GetMemoRequest) returns (MemoResponse) {}
+    rpc PutMemo (PutMemoRequest) returns (CodeResponse) {}
+    rpc DeleteMemo (DeleteMemoRequest) returns (CodeResponse) {}
 }
 
-message KVSRequest {
+message GetMemoRequest {
     string name = 1;
 }
 
-message KVSResponse {
-    string message = 1;
+message PutMemoRequest {
+    string name = 1;
+    string memo = 2;
+}
+
+message DeleteMemoRequest {
+    string name = 1;
+}
+
+message MemoResponse {
+    string memo = 1;
+}
+
+message CodeResponse {
+    string code = 1;
+    string message = 2;
 }
